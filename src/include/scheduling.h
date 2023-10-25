@@ -25,4 +25,5 @@ ProcessQueue createProcessQueue(int num_process);
 void printProcessQueue(ProcessQueue pq);
 void freeProcessQueue(ProcessQueue pq);
 void sortArrival(ProcessQueue pq);
+void sortBurst(ProcessQueue pq);
 void sortPID(ProcessQueue pq);

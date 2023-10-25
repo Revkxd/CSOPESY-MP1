@@ -53,6 +53,13 @@ int cmpPID(const void *a, const void *b)
     return p_a->pid - p_b->pid;
 }
 
+int cmpBurst(const void *a, const void *b)
+{
+    Process *p_a = (Process*)a;
+    Process *p_b = (Process*)b;
+    return p_a->burst_time - p_b->burst_time;
+}
+
 void sortArrival(ProcessQueue pq)
 {
     qsort(pq.processes, pq.size, sizeof(Process), cmpArrival);
@@ -61,4 +68,9 @@ void sortArrival(ProcessQueue pq)
 void sortPID(ProcessQueue pq)
 {
     qsort(pq.processes, pq.size, sizeof(Process), cmpPID);
+}
+
+void sortBurst(ProcessQueue pq)
+{
+    qsort(pq.processes, pq.size, sizeof(Process), cmpBurst);
 }
