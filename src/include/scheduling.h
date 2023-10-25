@@ -23,3 +23,5 @@ void RR(ProcessQueue pq, int quantum);
 ProcessQueue createProcessQueue(int num_process);
 void printProcessQueue(ProcessQueue pq);
 void freeProcessQueue(ProcessQueue pq);
+void sortArrival(ProcessQueue pq);
+void sortPID(ProcessQueue pq);
