@@ -6,6 +6,7 @@ ProcessQueue createProcessQueue(int num_process)
 {
     ProcessQueue pq = {
         num_process,
+        0,
         malloc(sizeof(Process) * num_process),
         calloc(num_process, sizeof(int)),
         calloc(num_process, sizeof(int))

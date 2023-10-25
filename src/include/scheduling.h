@@ -11,6 +11,7 @@ typedef struct {
 
 typedef struct {
     int size;
+    float average_wait;
     Process *processes;
     int *arrival;
     int *burst;
