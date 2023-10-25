@@ -17,7 +17,7 @@ typedef struct {
     int *burst;
 } ProcessQueue;
 
-void FCFS(ProcessQueue pq);
+void FCFS(ProcessQueue *pq);
 void SJF(ProcessQueue pq);
 void SRTF(ProcessQueue pq);
 void RR(ProcessQueue pq, int quantum);
