@@ -1,6 +1,6 @@
 #include "include/scheduling.h"
 
-void FCFS(Process processes[])
+void FCFS(ProcessQueue pq)
 {
 
 }

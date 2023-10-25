@@ -1,12 +1,25 @@
 #pragma once
 
 typedef struct {
-    int process_id;
+    int pid;
     int arrival_time;
     int burst_time;
+    int waiting_time;
+    int start_time;
+    int end_time;
 } Process;
 
-void FCFS(Process processes[]);
-void SJF(Process processes[]);
-void SRTF(Process processes[]);
-void RR(Process processes[], int quantum);
+typedef struct {
+    int size;
+    Process *processes;
+    int *arrival;
+    int *burst;
+} ProcessQueue;
+
+void FCFS(ProcessQueue pq);
+void SJF(ProcessQueue pq);
+void SRTF(ProcessQueue pq);
+void RR(ProcessQueue pq, int quantum);
+ProcessQueue createProcessQueue(int num_process);
+void printProcessQueue(ProcessQueue pq);
+void freeProcessQueue(ProcessQueue pq);

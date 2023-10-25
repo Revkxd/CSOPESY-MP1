@@ -1,6 +1,6 @@
 #include "include/scheduling.h"
 
-void RR(Process processes[], int quantum)
+void RR(ProcessQueue pq, int quantum)
 {
 
 }
