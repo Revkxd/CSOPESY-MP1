@@ -16,14 +16,15 @@ int main()
     }
 
     switch(algo) {
-        case 0: FCFS(pq); break;
+        case 0: FCFS(&pq); break;
         case 1: SJF(pq); break;
         case 2: SRTF(pq); break;
         case 3: RR(pq, quantum); break;
         default: fprintf(stderr, "%s", "Error: Invalid Algorithm");
     }
-
+    
     printProcessQueue(pq);
+    printf("Average waiting time: %.1f\n", pq.average_wait);
     freeProcessQueue(pq);
 
     return 0;
