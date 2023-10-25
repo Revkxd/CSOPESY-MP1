@@ -1,29 +1,10 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "include/scheduling.h"
 
-typedef struct {
-    int process_id;
-    int arrival_time;
-    int burst_time;
-} Process;
 
-void FCFS(Process processes[]) {
-
-}
-
-void SJF(Process processes[]) {
-
-}
-
-void SRTF(Process processes[]) {
-
-}
-
-void RR(Process processes[], int quantum) {
-
-}
-
-int main() {
+int main()
+{
     int algo, num_processes, quantum;
     scanf("%d %d %d", &algo, &num_processes, &quantum);
 
@@ -50,5 +31,6 @@ int main() {
         case 2: SRTF(processes); break;
         case 3: RR(processes, quantum);
     }
+
     return 0;
 }
