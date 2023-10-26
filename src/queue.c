@@ -73,18 +73,6 @@ Process* peek(ProcessQueue *pq)
     return pq->queue[pq->front];
 }
 
-int cmpBurst(const void *a, const void *b)
-{
-    Process *p_a = *(Process**)a;
-    Process *p_b = *(Process**)b;
-
-    if (p_a == NULL && p_b == NULL) return 0;
-    if (p_a == NULL) return 1;
-    if (p_b == NULL) return -1;
-
-    return p_a->burst_time - p_b->burst_time;
-}
-
 void sortQueueBurst(ProcessQueue* pq)
 {
     if (isEmpty(pq)) return;
@@ -93,7 +81,7 @@ void sortQueueBurst(ProcessQueue* pq)
     if (temp == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate queue\n");
-        return NULL;
+        return;
     }
 
     int count = 0;

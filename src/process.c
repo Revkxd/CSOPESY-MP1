@@ -69,6 +69,10 @@ int cmpArrival(const void *a, const void *b)
 {
     Process *p_a = *(Process**)a;
     Process *p_b = *(Process**)b;
+
+    if (p_a == NULL && p_b == NULL) return 0;
+    if (p_a == NULL) return 1;
+    if (p_b == NULL) return -1;
     return p_a->arrival_time - p_b->arrival_time;
 }
 
@@ -76,6 +80,10 @@ int cmpPID(const void *a, const void *b)
 {
     Process *p_a = *(Process**)a;
     Process *p_b = *(Process**)b;
+
+    if (p_a == NULL && p_b == NULL) return 0;
+    if (p_a == NULL) return 1;
+    if (p_b == NULL) return -1;
     return p_a->pid - p_b->pid;
 }
 
@@ -83,6 +91,10 @@ int cmpBurst(const void *a, const void *b)
 {
     Process *p_a = *(Process**)a;
     Process *p_b = *(Process**)b;
+
+    if (p_a == NULL && p_b == NULL) return 0;
+    if (p_a == NULL) return 1;
+    if (p_b == NULL) return -1;
     return p_a->burst_time - p_b->burst_time;
 }
 
