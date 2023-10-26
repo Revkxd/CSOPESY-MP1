@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "include/scheduling.h"
 #include "include/queue.h"
+#include "include/sort.h"
 
 void SJF(ProcessList *pl)
 {
@@ -29,7 +30,7 @@ void SJF(ProcessList *pl)
             continue;
         }
 
-        sortBurst(wait_queue->queue, wait_queue->size);
+        sortQueueBurst(wait_queue);
         Process* running = dequeue(wait_queue);
         running->start_time = time;
         running->end_time = time + running->burst_time;
