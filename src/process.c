@@ -10,7 +10,7 @@ ProcessList* createProcessList(int num_process)
     pl->ave_wait_time = 0;
 
     if (pl == NULL || pl->processes == NULL) {
-        fprintf(stderr, "%s", "Error: Failed to allocate process list");
+        fprintf(stderr, "%s", "Error: Failed to allocate process list\n");
         return NULL;
     }
 
@@ -22,7 +22,7 @@ Process* createProcess(int pid, int arrival_time, int burst_time)
     Process *p = malloc(sizeof(Process));
 
     if (p == NULL) {
-        fprintf(stderr, "%s", "Error: Failed to allocate process");
+        fprintf(stderr, "%s", "Error: Failed to allocate process\n");
         return NULL;
     }
 

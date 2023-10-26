@@ -20,7 +20,7 @@ int main()
         case 1: SJF(pl); break;
         case 2: SRTF(pl); break;
         case 3: RR(pl, quantum); break;
-        default: fprintf(stderr, "%s", "Error: Invalid Algorithm");
+        default: fprintf(stderr, "%s", "Error: Invalid Algorithm\n");
     }
     
     printProcessList(pl);
