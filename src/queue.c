@@ -5,9 +5,14 @@
 ProcessQueue *createQueue(int capacity)
 {
     ProcessQueue *q = malloc(sizeof(ProcessQueue));
+    if (q == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate queue\n");
+        return NULL;
+    }
+
     q->queue = malloc(sizeof(Process*) * capacity);
-    
-    if (q == NULL || q->queue == NULL)
+    if (q->queue == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate queue\n");
         return NULL;
@@ -55,6 +60,7 @@ Process* dequeue(ProcessQueue *pq)
         return NULL;
     }
     Process *p = pq->queue[pq->front];
+    pq->queue[pq->front] = NULL;
     pq->front = (pq->front + 1) % pq->capacity;
     pq->size--;
 
@@ -65,4 +71,41 @@ Process* peek(ProcessQueue *pq)
 {
     if (isEmpty(pq)) return NULL;
     return pq->queue[pq->front];
+}
+
+int cmpBurst(const void *a, const void *b)
+{
+    Process *p_a = *(Process**)a;
+    Process *p_b = *(Process**)b;
+
+    if (p_a == NULL && p_b == NULL) return 0;
+    if (p_a == NULL) return 1;
+    if (p_b == NULL) return -1;
+
+    return p_a->burst_time - p_b->burst_time;
+}
+
+void sortQueueBurst(ProcessQueue* pq)
+{
+    if (isEmpty(pq)) return;
+
+    Process **temp = malloc(sizeof(Process*) * pq->capacity);
+    if (temp == NULL)
+    {
+        fprintf(stderr, "Error: Failed to allocate queue\n");
+        return NULL;
+    }
+
+    int count = 0;
+    while (!isEmpty(pq)) {
+        temp[count] = dequeue(pq);
+        count++;
+    }
+
+    qsort(temp, count, sizeof(Process*), cmpBurst);
+
+    for (int i = 0; i < count; i++)
+        enqueue(pq, temp[i]);
+
+    free(temp);
 }
