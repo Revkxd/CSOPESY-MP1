@@ -8,24 +8,24 @@ int main()
     int algo, num_processes, quantum;
     scanf("%d%d%d", &algo, &num_processes, &quantum);
 
-    ProcessQueue pq = createProcessQueue(num_processes);
+    ProcessList *pl = createProcessList(num_processes);
     for(int i = 0; i < num_processes; i++) {
-        Process p;
-        scanf("%d%d%d", &p.pid, &p.arrival_time, &p.burst_time);
-        pq.processes[i] = p;
+        int pid, arrival_time, burst_time = 0;
+        scanf("%d%d%d", &pid, &arrival_time, &burst_time);
+        pl->processes[i] = createProcess(pid, arrival_time, burst_time);
     }
 
     switch(algo) {
-        case 0: FCFS(&pq); break;
-        case 1: SJF(pq); break;
-        case 2: SRTF(pq); break;
-        case 3: RR(pq, quantum); break;
+        case 0: FCFS(pl); break;
+        case 1: SJF(pl); break;
+        case 2: SRTF(pl); break;
+        case 3: RR(pl, quantum); break;
         default: fprintf(stderr, "%s", "Error: Invalid Algorithm");
     }
     
-    printProcessQueue(pq);
-    printf("Average waiting time: %.1f\n", pq.average_wait);
-    freeProcessQueue(pq);
+    printProcessList(pl);
+    printf("Average waiting time: %.1f\n", pl->ave_wait_time);
+    freeProcessList(pl);
 
     return 0;
 }

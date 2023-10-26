@@ -1,6 +1,6 @@
 #include "include/scheduling.h"
 
-void SJF(ProcessQueue pq)
+void SJF(ProcessList *pl)
 {
 
 }

@@ -1,6 +1,6 @@
 #include "include/scheduling.h"
 
-void SRTF(ProcessQueue pq)
+void SRTF(ProcessList *pl)
 {
 
 }

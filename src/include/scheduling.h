@@ -1,29 +1,8 @@
 #pragma once
 
-typedef struct {
-    int pid;
-    int arrival_time;
-    int burst_time;
-    int waiting_time;
-    int start_time;
-    int end_time;
-} Process;
+#include "process.h"
 
-typedef struct {
-    int size;
-    float average_wait;
-    Process *processes;
-    int *arrival;
-    int *burst;
-} ProcessQueue;
-
-void FCFS(ProcessQueue *pq);
-void SJF(ProcessQueue pq);
-void SRTF(ProcessQueue pq);
-void RR(ProcessQueue pq, int quantum);
-ProcessQueue createProcessQueue(int num_process);
-void printProcessQueue(ProcessQueue pq);
-void freeProcessQueue(ProcessQueue pq);
-void sortArrival(ProcessQueue pq);
-void sortBurst(ProcessQueue pq);
-void sortPID(ProcessQueue pq);
+void FCFS(ProcessList *pl);
+void SJF(ProcessList *pl);
+void SRTF(ProcessList *pl);
+void RR(ProcessList *pl, int quantum);
