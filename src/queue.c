@@ -72,28 +72,3 @@ Process* peek(ProcessQueue *pq)
     if (isEmpty(pq)) return NULL;
     return pq->queue[pq->front];
 }
-
-void sortQueueBurst(ProcessQueue* pq)
-{
-    if (isEmpty(pq)) return;
-
-    Process **temp = malloc(sizeof(Process*) * pq->capacity);
-    if (temp == NULL)
-    {
-        fprintf(stderr, "Error: Failed to allocate queue\n");
-        return;
-    }
-
-    int count = 0;
-    while (!isEmpty(pq)) {
-        temp[count] = dequeue(pq);
-        count++;
-    }
-
-    qsort(temp, count, sizeof(Process*), cmpBurst);
-
-    for (int i = 0; i < count; i++)
-        enqueue(pq, temp[i]);
-
-    free(temp);
-}

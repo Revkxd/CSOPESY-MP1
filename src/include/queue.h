@@ -15,5 +15,3 @@ void freeQueue(ProcessQueue *pq);
 void enqueue(ProcessQueue *pq, Process *p);
 Process* dequeue(ProcessQueue *pq);
 Process* peek(ProcessQueue *pq);
-
-void sortQueueBurst(ProcessQueue* pq);

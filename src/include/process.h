@@ -20,7 +20,3 @@ Process* createProcess(int pid, int arrival_time, int burst_time);
 void shallowCopy(Process** dest, Process** src, int size);
 void freeProcessList(ProcessList *pl);
 void printProcessList(ProcessList *pl);
-
-void sortArrival(Process **pl, int size);
-void sortBurst(Process **pl, int size);
-void sortPID(Process **pl, int size);
