@@ -7,7 +7,7 @@ void FCFS(ProcessList *pl)
     Process** sorted_arrival = malloc(sizeof(Process*) * pl->size);
 
     if (sorted_arrival == NULL) {
-        fprintf(stderr, "%s", "Error: Unable to allocate");
+        fprintf(stderr, "%s", "Error: Unable to allocate\n");
         return;
     }
 

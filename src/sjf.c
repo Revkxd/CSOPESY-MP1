@@ -10,7 +10,7 @@ void SJF(ProcessList *pl)
     ProcessQueue *wait_queue = createQueue(pl->size);
 
     if (arrival_queue == NULL || wait_queue == NULL) {
-        fprintf(stderr, "%s", "Error: Unable to allocate");
+        fprintf(stderr, "%s", "Error: Unable to allocate\n");
         return;
     }
 
