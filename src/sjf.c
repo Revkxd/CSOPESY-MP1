@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdio.h>
 #include "include/scheduling.h"
 #include "include/queue.h"
 #include "include/sort.h"
