@@ -8,6 +8,10 @@ int main()
     int algo, num_processes, quantum;
     scanf("%d%d%d", &algo, &num_processes, &quantum);
 
+    if(algo != 3) {
+        quantum = 1;
+    }
+
     ProcessList *pl = createProcessList(num_processes);
     for(int i = 0; i < num_processes; i++) {
         int pid, arrival_time, burst_time = 0;
