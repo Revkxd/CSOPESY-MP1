@@ -12,7 +12,10 @@ void FCFS(ProcessList *pl)
         return;
     }
 
-    shallowCopy(sorted_arrival, pl->processes, pl->size);
+    for (int i = 0; i < pl->size; i++) {
+        sorted_arrival[i] = pl->processes[i];
+    }
+
     sortArrival(sorted_arrival, pl->size);
 
     // first arrived process has no wait time

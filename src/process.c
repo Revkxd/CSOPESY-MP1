@@ -36,13 +36,6 @@ Process* createProcess(int pid, int arrival_time, int burst_time)
     return p;
 }
 
-void shallowCopy(Process** dest, Process** src, int size)
-{
-    for (int i = 0; i < size; i++) {
-        dest[i] = src[i];
-    }
-}
-
 void freeProcessList(ProcessList *pl)
 {
     for (int i = 0; i < pl->size; i++) {

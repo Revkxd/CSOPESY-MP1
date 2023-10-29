@@ -17,6 +17,5 @@ typedef struct {
 
 ProcessList* createProcessList(int num_process);
 Process* createProcess(int pid, int arrival_time, int burst_time);
-void shallowCopy(Process** dest, Process** src, int size);
 void freeProcessList(ProcessList *pl);
 void printProcessList(ProcessList *pl);
