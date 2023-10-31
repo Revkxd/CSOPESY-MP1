@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "include/scheduling.h"
 
+// #define BENCHMARK
 
 int main()
 {
@@ -19,6 +21,10 @@ int main()
         pl->processes[i] = createProcess(pid, arrival_time, burst_time);
     }
 
+#ifdef BENCHMARK
+    clock_t start = clock();
+#endif
+
     switch(algo) {
         case 0: FCFS(pl); break;
         case 1: SJF(pl); break;
@@ -26,10 +32,19 @@ int main()
         case 3: RR(pl, quantum); break;
         default: fprintf(stderr, "%s", "Error: Invalid Algorithm\n");
     }
+
+#ifdef BENCHMARK
+    clock_t end = clock();
+    double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
+#endif
     
     printProcessList(pl);
     printf("Average waiting time: %.1f\n", pl->ave_wait_time);
     freeProcessList(pl);
+
+#ifdef BENCHMARK
+    printf("[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
+#endif
 
     return 0;
 }
