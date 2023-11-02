@@ -3,8 +3,6 @@
 #include <time.h>
 #include "include/scheduling.h"
 
-// #define BENCHMARK
-
 int main()
 {
     int algo, num_processes, quantum;

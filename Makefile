@@ -10,11 +10,15 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 
-.PHONY: all clean debug test
+.PHONY: all clean debug test bench
 
 all: $(BIN)
+
 debug: CFLAGS += -g3
 debug: all
+
+bench: CFLAGS += -D'BENCHMARK'
+bench: all
 
 $(BIN): $(OBJS) | $(BUILD_DIR)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
@@ -27,8 +31,5 @@ $(BUILD_DIR) $(OBJ_DIR):
 
 clean:
 	rm -r $(OBJ_DIR) $(BUILD_DIR)
-
-test: debug
-	gdb $(BIN)
 
 -include $(DEPS)
