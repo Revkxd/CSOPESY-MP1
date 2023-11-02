@@ -10,6 +10,8 @@ int cmpArrival(const void *a, const void *b)
     if (p_a == NULL && p_b == NULL) return 0;
     if (p_a == NULL) return 1;
     if (p_b == NULL) return -1;
+    // fix for windows qsort implementation not being in-place. L windows, W linux
+    if (p_a->arrival_time - p_b->arrival_time == 0) return p_a->pid - p_b->pid;
     return p_a->arrival_time - p_b->arrival_time;
 }
 
@@ -32,6 +34,8 @@ int cmpBurst(const void *a, const void *b)
     if (p_a == NULL && p_b == NULL) return 0;
     if (p_a == NULL) return 1;
     if (p_b == NULL) return -1;
+    // fix for windows qsort implementation not being in-place. L windows, W linux
+    if (p_a->burst_time - p_b->burst_time == 0) return p_a->pid - p_b->pid;
     return p_a->burst_time - p_b->burst_time;
 }
 
