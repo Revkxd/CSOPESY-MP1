@@ -39,11 +39,11 @@ int main()
 #endif
     
     printProcessList(pl);
-    printf("Average waiting time: %.1f\n", pl->ave_wait_time);
+    printf("Average waiting time: %.1f", pl->ave_wait_time);
     freeProcessList(pl);
 
 #ifdef BENCHMARK
-    printf("[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
+    printf("\n\n[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
 #endif
 
     return 0;
