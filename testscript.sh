@@ -28,7 +28,7 @@ if [ $# -eq 1 ]; then
 fi
 
 if [ $# -eq 2 ]; then
-    $bin < $1 | tee $output_file
+    $bin < $1 | tee $diff_output
     echo -e "\n\n===== Diff ====="
     diff -y --suppress-common-lines $diff_output $2
     echo -e "\n===== End of Diff ====="
