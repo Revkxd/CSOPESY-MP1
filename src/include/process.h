@@ -21,3 +21,5 @@ ProcessList* createProcessList(int num_process);
 Process* createProcess(int pid, int arrival_time, int burst_time);
 void freeProcessList(ProcessList *pl);
 void printProcessList(ProcessList *pl);
+void appendStartTime(Process *p, int start);
+void appendEndTime(Process *p, int end);

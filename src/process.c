@@ -52,8 +52,27 @@ void printProcessList(ProcessList *pl)
 {
     for (int i = 0; i < pl->size; i++) {
         Process *p = pl->processes[i];
-        for (int j = 0; p->start_time[j] != -1; j++)
-            printf("%d start time: %d end time: %d | ", p->pid, p->start_time[j], p->end_time[j]);
+        printf("%d ", p->pid);
+        for (int j = 0; p->start_time[j] != -1 && j < ARR_MAX; j++)
+            printf("%d start time: %d end time: %d | ", p->start_time[j], p->end_time[j]);
         printf("Waiting time: %d\n", p->waiting_time);
     }
+}
+
+void appendStartTime(Process *p, int start)
+{
+    int idx = 0;
+    while(p->start_time[idx] != -1 && idx < ARR_MAX) {
+        idx++;
+    }
+    p->start_time[idx] = start;
+}
+
+void appendEndTime(Process *p, int end)
+{
+    int idx = 0;
+    while(p->end_time[idx] != -1 && idx < ARR_MAX) {
+        idx++;
+    }
+    p->end_time[idx] = end;
 }
