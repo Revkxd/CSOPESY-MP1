@@ -18,18 +18,17 @@ void FCFS(ProcessList *pl)
 
     sortArrival(sorted_arrival, pl->size);
 
-    // first arrived process has no wait time
     Process *first = sorted_arrival[0];
-    first->start_time[0] = first->arrival_time;
-    first->end_time[0] = first->start_time[0] + first->burst_time;
+    appendStartTime(first, first->arrival_time);
+    appendEndTime(first, first->start_time[0] + first->burst_time);
     first->waiting_time = 0;
 
     int total_wait = 0;
     for (int i = 1; i < pl->size; i++) {
         Process *curr = sorted_arrival[i];
         Process *prev = sorted_arrival[i - 1];
-        curr->start_time[0] = prev->end_time[0];
-        curr->end_time[0] = curr->start_time[0] + curr->burst_time;
+        appendStartTime(curr, prev->end_time[0]);
+        appendEndTime(curr, curr->start_time[0] + curr->burst_time);
         curr->waiting_time = curr->end_time[0] - curr->arrival_time - curr->burst_time;
         total_wait += curr->waiting_time;
     }
