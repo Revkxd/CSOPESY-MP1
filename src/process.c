@@ -53,7 +53,7 @@ void printProcessList(ProcessList *pl)
     for (int i = 0; i < pl->size; i++) {
         Process *p = pl->processes[i];
         for (int j = 0; p->start_time[j] != -1; j++)
-            printf("%d start time: %d end time: %d | ", p->start_time[j], p->end_time[j]);
+            printf("%d start time: %d end time: %d | ", p->pid, p->start_time[j], p->end_time[j]);
         printf("Waiting time: %d\n", p->waiting_time);
     }
 }
