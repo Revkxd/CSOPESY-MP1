@@ -1,12 +1,14 @@
 #pragma once
 
+#define ARR_MAX 512
+
 typedef struct {
     int pid;
     int arrival_time;
     int burst_time;
     int waiting_time;
-    int start_time;
-    int end_time;
+    int start_time[ARR_MAX];
+    int end_time[ARR_MAX];
 } Process;
 
 typedef struct {

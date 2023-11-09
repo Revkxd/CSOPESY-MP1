@@ -29,9 +29,12 @@ Process* createProcess(int pid, int arrival_time, int burst_time)
     p->pid = pid;
     p->arrival_time = arrival_time;
     p->burst_time = burst_time;
-    p->start_time = -1;
-    p->end_time = -1;
     p->waiting_time = 0;
+
+    for (int i = 0; i < ARR_MAX; i++) {
+        p->start_time[i] = -1;
+        p->end_time[i] = -1;
+    }
 
     return p;
 }
