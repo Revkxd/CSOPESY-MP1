@@ -39,8 +39,8 @@ void SJF(ProcessList *pl)
         }
 
         Process* running = dequeue(wait_queue);
-        running->start_time[0] = time;
-        running->end_time[0] = time + running->burst_time;
+        appendStartTime(running, time);
+        appendEndTime(running, time + running->burst_time);
         running->waiting_time = time - running->arrival_time;
         time += running->burst_time;
     }
