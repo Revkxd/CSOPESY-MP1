@@ -21,11 +21,11 @@ void SJF(ProcessList *pl)
 
     sortQueueArrival(arrival_queue);
 
-    int process_entered_wait = 0;
+    int process_arrived = 0;
     while (arrival_queue->size > 0 || ready_queue->size > 0) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
             enqueue(ready_queue, dequeue(arrival_queue));
-            process_entered_wait = 1;
+            process_arrived = 1;
         }
 
         if (ready_queue->size == 0) {
@@ -33,9 +33,9 @@ void SJF(ProcessList *pl)
             continue;
         }
 
-        if (process_entered_wait == 1) {
+        if (process_arrived == 1) {
             sortQueueBurst(ready_queue);
-            process_entered_wait = 0;
+            process_arrived = 0;
         }
 
         Process* running = dequeue(ready_queue);
