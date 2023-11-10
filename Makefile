@@ -10,7 +10,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 
-.PHONY: all clean debug test bench
+.PHONY: all clean debug bench
 
 all: $(BIN)
 
