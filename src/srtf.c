@@ -75,12 +75,12 @@ void SRTF(ProcessList *pl)
         }
 
         if (preempt == 1) {
-            Process* minBurst = findMinBurst(ready_table, ARR_MAX);
-            if (running == NULL || running->pid != minBurst->pid)
-                appendStartTime(minBurst, time);
-            if (running != NULL && running->pid != minBurst->pid)
+            Process* min = findMinBurst(ready_table, ARR_MAX);
+            if (running == NULL || running->pid != min->pid)
+                appendStartTime(min, time);
+            if (running != NULL && running->pid != min->pid)
                 appendEndTime(running, time);
-            running = minBurst;
+            running = min;
             preempt = 0;
         }
 
