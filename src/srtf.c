@@ -6,34 +6,29 @@
 
 Process* findMinBurst(Process **table, int size)
 {
-    int idx = 1;
     Process *min = table[0];
-    while (table[idx] != NULL && idx < size) {
-        if (table[idx]->burst_time < min->burst_time)
-            min = table[idx];
-        idx++;
+    for (int i = 1; i < size; i++) {
+        if (table[i]->burst_time < min->burst_time)
+            min = table[i];
     }
     return min;
 }
 
 void insertProcess(Process **table, int size, Process *p)
 {
-    int idx = 0;
-    while (table[idx] != NULL && idx < size)
-        idx++;
-    table[idx] = p;
+    table[size - 1] = p;
 }
 
 void removeProcess(Process **table, int size, Process *p)
 {
     int idx = -1;
-    for (int i = 0; i < size && table[i] != NULL; i++) {
+    for (int i = 0; i < size; i++) {
         if (p->pid == table[i]->pid) {
             idx = i;
             break; 
         }
     }
-    while (idx != -1 && table[idx] != NULL && idx < size) {
+    while (idx != -1 && idx < size) {
         table[idx] = table[idx + 1];
         idx++;
     }
@@ -43,7 +38,7 @@ void SRTF(ProcessList *pl)
 {
     int time = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
-    Process **ready_table = calloc(ARR_MAX, sizeof(Process*));
+    Process **ready_table = malloc(sizeof(Process*) * ARR_MAX);
     int *burst_table = malloc(sizeof(int) * pl->size);
 
     if (arrival_queue == NULL || ready_table == NULL || burst_table == NULL) {
@@ -64,8 +59,8 @@ void SRTF(ProcessList *pl)
     Process *running = NULL;
     while (arrival_queue->size > 0 || active_processes > 0 ) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
-            insertProcess(ready_table, ARR_MAX, dequeue(arrival_queue));
             active_processes++;
+            insertProcess(ready_table, active_processes, dequeue(arrival_queue));
             preempt = 1;
         }
 
@@ -75,7 +70,7 @@ void SRTF(ProcessList *pl)
         }
 
         if (preempt == 1) {
-            Process* min = findMinBurst(ready_table, ARR_MAX);
+            Process* min = findMinBurst(ready_table, active_processes);
             if (running == NULL || running->pid != min->pid)
                 appendStartTime(min, time);
             if (running != NULL && running->pid != min->pid)
@@ -88,7 +83,7 @@ void SRTF(ProcessList *pl)
         running->burst_time--;
         if (running->burst_time == 0) {
             appendEndTime(running, time);
-            removeProcess(ready_table, ARR_MAX, running);
+            removeProcess(ready_table, active_processes, running);
             running = NULL;
             active_processes--;
             preempt = 1;
