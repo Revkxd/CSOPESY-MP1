@@ -54,6 +54,14 @@ void sortBurst(Process **p, int size)
     qsort(p, size, sizeof(Process*), cmpBurst);
 }
 
+void sortQueueArrival(ProcessQueue* pq)
+{
+    if (pq->size == 0) return;
+    pq->front = 0;
+    pq->rear = pq->size - 1;
+    sortArrival(pq->queue, pq->capacity);
+}
+
 void sortQueueBurst(ProcessQueue* pq)
 {
     if (pq->size == 0) return;
