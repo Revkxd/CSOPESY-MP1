@@ -85,3 +85,33 @@ int getCompletion(Process *p)
     }
     return p->end_time[idx];
 }
+
+Process* findMinBurst(Process **table, int size)
+{
+    Process *min = table[0];
+    for (int i = 1; i < size; i++) {
+        if (table[i]->burst_time < min->burst_time)
+            min = table[i];
+    }
+    return min;
+}
+
+void appendProcess(Process **table, int size, Process *p)
+{
+    table[size - 1] = p;
+}
+
+void removeProcess(Process **table, int size, Process *p)
+{
+    int idx = -1;
+    for (int i = 0; i < size; i++) {
+        if (p->pid == table[i]->pid) {
+            idx = i;
+            break; 
+        }
+    }
+    while (idx != -1 && idx < size) {
+        table[idx] = table[idx + 1];
+        idx++;
+    }
+}
