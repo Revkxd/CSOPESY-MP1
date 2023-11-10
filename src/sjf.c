@@ -8,9 +8,9 @@ void SJF(ProcessList *pl)
 {
     int time = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
-    ProcessQueue *ready_queue = createQueue(pl->size);
+    Process **ready_table = malloc(sizeof(Process*) * pl->size);
 
-    if (arrival_queue == NULL || ready_queue == NULL) {
+    if (arrival_queue == NULL || ready_table == NULL) {
         fprintf(stderr, "%s", "Error: Unable to allocate\n");
         return;
     }
@@ -21,26 +21,23 @@ void SJF(ProcessList *pl)
 
     sortQueueArrival(arrival_queue);
 
-    int process_arrived = 0;
-    while (arrival_queue->size > 0 || ready_queue->size > 0) {
+    int active_processes = 0;
+    while (arrival_queue->size > 0 || active_processes > 0) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
-            enqueue(ready_queue, dequeue(arrival_queue));
-            process_arrived = 1;
+            active_processes++;
+            appendProcess(ready_table, active_processes, dequeue(arrival_queue));
         }
 
-        if (ready_queue->size == 0) {
+        if (active_processes == 0) {
             time++;
             continue;
         }
 
-        if (process_arrived == 1) {
-            sortQueueBurst(ready_queue);
-            process_arrived = 0;
-        }
-
-        Process* running = dequeue(ready_queue);
+        Process* running = findMinBurst(ready_table, active_processes);
         appendStartTime(running, time);
         appendEndTime(running, time + running->burst_time);
+        removeProcess(ready_table, active_processes, running);
+        active_processes--;
         running->waiting_time = time - running->arrival_time;
         time += running->burst_time;
     }
@@ -52,6 +49,6 @@ void SJF(ProcessList *pl)
 
     pl->ave_wait_time = (float)total_wait / (float)pl->size;
 
+    free(ready_table);
     freeQueue(arrival_queue);
-    freeQueue(ready_queue);
 }
