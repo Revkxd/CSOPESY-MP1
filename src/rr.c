@@ -22,7 +22,7 @@ void RR(ProcessList *pl, int quantum)
         burst_table[p->pid - 1] = p->burst_time;
     }
 
-    sortArrival(arrival_queue->queue, arrival_queue->capacity);
+    sortQueueArrival(arrival_queue);
 
     while (arrival_queue->size > 0 || ready_queue->size > 0) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time)

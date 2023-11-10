@@ -19,7 +19,7 @@ void SJF(ProcessList *pl)
         enqueue(arrival_queue, pl->processes[i]);
     }
 
-    sortArrival(arrival_queue->queue, arrival_queue->capacity);
+    sortQueueArrival(arrival_queue);
 
     int process_entered_wait = 0;
     while (arrival_queue->size > 0 || ready_queue->size > 0) {
