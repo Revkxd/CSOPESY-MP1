@@ -30,7 +30,7 @@ void SRTF(ProcessList *pl)
     while (arrival_queue->size > 0 || active_processes > 0 ) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
             active_processes++;
-            insertProcess(ready_table, active_processes, dequeue(arrival_queue));
+            appendProcess(ready_table, active_processes, dequeue(arrival_queue));
             preempt = 1;
         }
 
