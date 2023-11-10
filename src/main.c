@@ -42,7 +42,7 @@ int main()
 #endif
 
 #ifdef BENCHMARK
-    printf("\n\n[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
+    printf("[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
 #endif
 
     freeProcessList(pl);
