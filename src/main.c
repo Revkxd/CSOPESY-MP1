@@ -36,13 +36,15 @@ int main()
     double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
 #endif
     
+#ifndef BENCHMARK
     printProcessList(pl);
     printf("Average waiting time: %.1f", pl->ave_wait_time);
-    freeProcessList(pl);
+#endif
 
 #ifdef BENCHMARK
     printf("\n\n[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
 #endif
 
+    freeProcessList(pl);
     return 0;
 }
