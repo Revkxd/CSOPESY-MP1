@@ -18,6 +18,7 @@ void FCFS(ProcessList *pl)
 
     sortArrival(sorted_arrival, pl->size);
 
+    // first arrived process has no wait time
     Process *first = sorted_arrival[0];
     appendStartTime(first, first->arrival_time);
     appendEndTime(first, first->start_time[0] + first->burst_time);
