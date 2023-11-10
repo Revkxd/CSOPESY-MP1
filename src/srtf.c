@@ -38,7 +38,7 @@ void SRTF(ProcessList *pl)
 {
     int time = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
-    Process **ready_table = malloc(sizeof(Process*) * ARR_MAX);
+    Process **ready_table = malloc(sizeof(Process*) * pl->size);
     int *burst_table = malloc(sizeof(int) * pl->size);
 
     if (arrival_queue == NULL || ready_table == NULL || burst_table == NULL) {
