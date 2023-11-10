@@ -10,7 +10,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEPS = $(OBJS:.o=.d)
 
-.PHONY: all clean debug bench
+.PHONY: all clean debug bench release release-bench
 
 all: $(BIN)
 
@@ -19,6 +19,12 @@ debug: all
 
 bench: CFLAGS += -D'BENCHMARK'
 bench: all
+
+release: CFLAGS += -O3
+release: all
+
+release-bench: CFLAGS += -D'BENCHMARK' -O3
+release-bench: all
 
 $(BIN): $(OBJS) | $(BUILD_DIR)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
