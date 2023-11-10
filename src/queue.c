@@ -11,7 +11,7 @@ ProcessQueue *createQueue(int capacity)
         return NULL;
     }
 
-    q->queue = malloc(sizeof(Process*) * capacity);
+    q->queue = calloc(capacity, sizeof(Process*));
     if (q->queue == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate queue\n");

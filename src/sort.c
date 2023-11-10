@@ -57,23 +57,7 @@ void sortBurst(Process **p, int size)
 void sortQueueBurst(ProcessQueue* pq)
 {
     if (pq->size == 0) return;
-
-    Process **temp = malloc(sizeof(Process*) * pq->capacity);
-    if (temp == NULL)
-    {
-        fprintf(stderr, "Error: Failed to allocate queue\n");
-        return;
-    }
-
-    int count = 0;
-    while (pq->size > 0) {
-        temp[count] = dequeue(pq);
-        count++;
-    }
-
-    sortBurst(temp, count);
-    for (int i = 0; i < count; i++)
-        enqueue(pq, temp[i]);
-
-    free(temp);
+    pq->front = 0;
+    pq->rear = pq->size - 1;
+    sortBurst(pq->queue, pq->capacity);
 }
