@@ -23,3 +23,4 @@ void freeProcessList(ProcessList *pl);
 void printProcessList(ProcessList *pl);
 void appendStartTime(Process *p, int start);
 void appendEndTime(Process *p, int end);
+int getCompletion(Process *p);

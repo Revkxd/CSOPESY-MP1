@@ -76,3 +76,12 @@ void appendEndTime(Process *p, int end)
     }
     p->end_time[idx] = end;
 }
+
+int getCompletion(Process *p)
+{
+    int idx = 0;
+    while(p->end_time[idx + 1] != -1 && idx < ARR_MAX) {
+        idx++;
+    }
+    return p->end_time[idx];
+}
