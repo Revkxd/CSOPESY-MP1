@@ -32,7 +32,9 @@ else
     inputs=($test_dir/$1/*.txt)
     for file in ${inputs[@]}; do
         echo "${txtmga}${bold}[INPUT] ${norm}${file}"
-        time $bin < $file
+        for i in {0..2}; do
+            $bin < $file
+        done
         echo -e "\n"
     done
 fi
