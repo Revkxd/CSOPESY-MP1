@@ -56,12 +56,12 @@ void SRTF(ProcessList *pl)
             appendEndTime(running, time);
             removeProcess(ready_table, pl->size, running);
             active_processes--;
+            preempt = 1;
             // compute wait time of completed process
             int turnaround = time - running->arrival_time;
             running->waiting_time = turnaround - burst_table[running->pid - 1];
             total_wait += running->waiting_time;
             running = NULL;
-            preempt = 1;
         }
     }
 
