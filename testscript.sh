@@ -15,7 +15,7 @@ if [ $# -lt 1 ] || [ $# -gt 2 ]; then
     exit 0
 fi
 
-if [ $# -eq 1 ] && [ "$1" != "bench" ]; then
+if [ $# -eq 1 ]; then
     inputs=($test_dir/$1/input??.txt)
     outputs=($test_dir/$1/output??.txt)
     for ((i=0; i<${#inputs[@]}; i++)); do
@@ -28,7 +28,9 @@ if [ $# -eq 1 ] && [ "$1" != "bench" ]; then
         fi
     done
     rm $diff_output
-else
+fi
+
+if [ "$1" = "bench" ]; then
     inputs=($test_dir/$1/*.txt)
     for file in ${inputs[@]}; do
         echo "${txtmga}${bold}[INPUT] ${norm}${file}"
