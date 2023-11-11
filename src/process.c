@@ -87,9 +87,13 @@ Process* findMinBurst(Process **table, int size)
     return min;
 }
 
-void appendProcess(Process **table, int size, Process *p)
+void insertProcess(Process **table, int size, int pos, Process *p)
 {
-    table[size - 1] = p;
+    if (pos >= size) {
+        fprintf(stderr, "Error: Index out of bounds inserting into table\n");
+        return;
+    }
+    table[pos] = p;
 }
 
 void removeProcess(Process **table, int size, Process *p)

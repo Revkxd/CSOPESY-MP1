@@ -30,8 +30,8 @@ void SRTF(ProcessList *pl)
     Process *running = NULL;
     while (arrival_queue->size > 0 || active_processes > 0 ) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
+            insertProcess(ready_table, pl->size, active_processes, dequeue(arrival_queue));
             active_processes++;
-            appendProcess(ready_table, active_processes, dequeue(arrival_queue));
             preempt = 1;
         }
 
@@ -54,7 +54,7 @@ void SRTF(ProcessList *pl)
         running->burst_time--;
         if (running->burst_time == 0) {
             appendEndTime(running, time);
-            removeProcess(ready_table, active_processes, running);
+            removeProcess(ready_table, pl->size, running);
             active_processes--;
             // compute wait time of completed process
             int turnaround = time - running->arrival_time;

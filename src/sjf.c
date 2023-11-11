@@ -25,8 +25,8 @@ void SJF(ProcessList *pl)
     int active_processes = 0;
     while (arrival_queue->size > 0 || active_processes > 0) {
         while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
+            insertProcess(ready_table, pl->size, active_processes, dequeue(arrival_queue));
             active_processes++;
-            appendProcess(ready_table, active_processes, dequeue(arrival_queue));
         }
 
         if (active_processes == 0) {
@@ -37,7 +37,7 @@ void SJF(ProcessList *pl)
         Process* running = findMinBurst(ready_table, active_processes);
         appendStartTime(running, time);
         appendEndTime(running, time + running->burst_time);
-        removeProcess(ready_table, active_processes, running);
+        removeProcess(ready_table, pl->size, running);
         active_processes--;
         // compute wait time of completed process
         running->waiting_time = time - running->arrival_time;

@@ -24,5 +24,5 @@ void printProcessList(ProcessList *pl);
 void appendStartTime(Process *p, int start);
 void appendEndTime(Process *p, int end);
 Process* findMinBurst(Process **table, int size);
-void appendProcess(Process **table, int pos, Process *p);
+void insertProcess(Process **table, int size, int pos, Process *p);
 void removeProcess(Process **table, int size, Process *p);
