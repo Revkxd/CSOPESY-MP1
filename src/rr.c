@@ -7,6 +7,7 @@
 void RR(ProcessList *pl, int quantum)
 {
     int time = 0;
+    int total_wait = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
     ProcessQueue *ready_queue = createQueue(pl->size);
     int *burst_table = malloc(sizeof(int) * pl->size);
@@ -38,6 +39,10 @@ void RR(ProcessList *pl, int quantum)
         if (burst_table[running->pid - 1] <= quantum) {
             time += burst_table[running->pid - 1];
             burst_table[running->pid - 1] = 0;
+            // compute wait time of completed process
+            int turnaround = time - running->arrival_time;
+            running->waiting_time = turnaround - running->burst_time;
+            total_wait += running->waiting_time;
         } else {
             time += quantum;
             burst_table[running->pid - 1] -= quantum;
@@ -49,14 +54,6 @@ void RR(ProcessList *pl, int quantum)
             enqueue(ready_queue, dequeue(arrival_queue));
         if (burst_table[running->pid - 1] > 0)
             enqueue(ready_queue, running);
-    }
-
-    int total_wait = 0;
-    for (int i = 0; i < pl->size; i++) {
-        Process *p = pl->processes[i];
-        int turnaround = getCompletion(p) - p->arrival_time;
-        p->waiting_time = turnaround - p->burst_time;
-        total_wait += p->waiting_time;
     }
 
     pl->ave_wait_time = (float)total_wait / (float)pl->size;
