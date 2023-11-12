@@ -9,7 +9,7 @@ void SRTF(ProcessList *pl)
     int time = 0;
     int total_wait = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
-    Process **ready_table = malloc(sizeof(Process*) * pl->size);
+    Process **ready_table = calloc(pl->size, sizeof(Process*));
     int *burst_table = malloc(sizeof(int) * pl->size);
 
     if (arrival_queue == NULL || ready_table == NULL || burst_table == NULL) {
@@ -26,6 +26,7 @@ void SRTF(ProcessList *pl)
     sortQueueArrival(arrival_queue);
 
     int preempt = 0;
+    int minIdx = 0;
     int active_processes = 0;
     Process *running = NULL;
     while (arrival_queue->size > 0 || active_processes > 0 ) {
@@ -41,7 +42,8 @@ void SRTF(ProcessList *pl)
         }
 
         if (preempt == 1) {
-            Process* min = findMinBurst(ready_table, active_processes);
+            minIdx = findMinBurst(ready_table, active_processes);
+            Process *min = ready_table[minIdx];
             if (running == NULL || running->pid != min->pid)
                 appendStartTime(min, time);
             if (running != NULL && running->pid != min->pid)
@@ -54,7 +56,7 @@ void SRTF(ProcessList *pl)
         running->burst_time--;
         if (running->burst_time == 0) {
             appendEndTime(running, time);
-            removeProcess(ready_table, pl->size, running);
+            removeProcess(ready_table, pl->size, minIdx);
             active_processes--;
             preempt = 1;
             // compute wait time of completed process

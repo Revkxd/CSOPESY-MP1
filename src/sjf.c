@@ -9,7 +9,7 @@ void SJF(ProcessList *pl)
     int time = 0;
     int total_wait = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
-    Process **ready_table = malloc(sizeof(Process*) * pl->size);
+    Process **ready_table = calloc(pl->size, sizeof(Process*));
 
     if (arrival_queue == NULL || ready_table == NULL) {
         fprintf(stderr, "%s", "Error: Unable to allocate\n");
@@ -34,10 +34,11 @@ void SJF(ProcessList *pl)
             continue;
         }
 
-        Process* running = findMinBurst(ready_table, active_processes);
+        int minIdx = findMinBurst(ready_table, active_processes);
+        Process* running = ready_table[minIdx];
         appendStartTime(running, time);
         appendEndTime(running, time + running->burst_time);
-        removeProcess(ready_table, pl->size, running);
+        removeProcess(ready_table, pl->size, minIdx);
         active_processes--;
         // compute wait time of completed process
         running->waiting_time = time - running->arrival_time;
