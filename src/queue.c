@@ -67,7 +67,7 @@ Process* dequeue(ProcessQueue *pq)
     return p;
 }
 
-Process* peek(ProcessQueue *pq)
+Process* peekQueue(ProcessQueue *pq)
 {
     if (isEmpty(pq)) return NULL;
     return pq->queue[pq->front];
