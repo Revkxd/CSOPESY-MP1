@@ -36,7 +36,7 @@ void SRTF(ProcessList *pl)
         }
 
         if (active_processes == 0) {
-            time++;
+            time = peek(arrival_queue)->arrival_time;
             continue;
         }
 

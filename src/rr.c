@@ -30,7 +30,7 @@ void RR(ProcessList *pl, int quantum)
             enqueue(ready_queue, dequeue(arrival_queue));
 
         if (ready_queue->size == 0) {
-            time++;
+            time = peek(arrival_queue)->arrival_time;
             continue;
         }
 
