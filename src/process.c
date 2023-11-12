@@ -72,35 +72,3 @@ void appendEndTime(Process *p, int end)
     p->end_time[idx] = end;
     p->run_count++;
 }
-
-int findMinBurst(Process **table, int size)
-{
-    int min = 0;
-    for (int i = 1; i < size; i++) {
-        if (table[i] == NULL)
-            break;
-        if (table[i]->remaining_burst < table[min]->remaining_burst)
-            min = i;
-    }
-    return min;
-}
-
-void insertProcess(Process **table, int size, int pos, Process *p)
-{
-    if (pos >= size) {
-        fprintf(stderr, "Error: Index out of bounds inserting into table\n");
-        return;
-    }
-    table[pos] = p;
-}
-
-void removeProcess(Process **table, int size, int pos)
-{
-    int idx = pos;
-    while (idx < size) {
-        if (table[idx] == NULL)
-            break;
-        table[idx] = table[idx + 1];
-        idx++;
-    }
-}
