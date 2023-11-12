@@ -16,9 +16,6 @@ typedef struct {
 Process* createProcess(int pid, int arrival_time, int burst_time);
 void appendStartTime(Process *p, int start);
 void appendEndTime(Process *p, int end);
-int findMinBurst(Process **table, int size);
-void insertProcess(Process **table, int size, int pos, Process *p);
-void removeProcess(Process **table, int size, int pos);
 
 typedef struct {
     Process **processes;
