@@ -22,6 +22,7 @@ void FCFS(ProcessList *pl)
     Process *first = sorted_arrival[0];
     appendStartTime(first, first->arrival_time);
     appendEndTime(first, first->start_time[0] + first->burst_time);
+    first->remaining_burst = 0;
     first->waiting_time = 0;
 
     int total_wait = 0;
