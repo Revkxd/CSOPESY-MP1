@@ -1,7 +1,6 @@
 # OPESY-MP1
 
 ## Dependencies
----
 ### Required
 - [gcc](https://gcc.gnu.org/install/download.html)
 - [GNU Make](https://www.gnu.org/software/make/#download)
@@ -10,7 +9,6 @@
 - [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html)
 
 ## Build Instructions
----
 1. Install required dependencies.
 2. `cd` into project root.
 3. Run `make release` to compile executable.
@@ -19,7 +17,6 @@
 6. Run `make clean` to remove executable and build artifacts.
 
 ## Extras
----
 - Other compilation targets: `all` `debug` `bench` `bench-prof`
 - Running `testscript.sh` requires optional dependencies.
 - `bench` suppresses printing of processes and only outputs elapsed CPU time.
