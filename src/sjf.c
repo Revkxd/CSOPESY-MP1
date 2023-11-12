@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "include/scheduling.h"
-#include "include/queue.h"
-#include "include/sort.h"
 #include "include/heap.h"
 
 void SJF(ProcessList *pl)
 {
     int time = 0;
     int total_wait = 0;
-    ProcessQueue *arrival_queue = createQueue(pl->size);
+    ProcessHeap *arrival_queue = createHeap(pl->size, ARRIVAL);
     ProcessHeap *ready_queue = createHeap(pl->size, BURST);
 
     if (arrival_queue == NULL || ready_queue == NULL) {
@@ -18,18 +16,16 @@ void SJF(ProcessList *pl)
     }
 
     for (int i = 0; i < pl->size; i++) {
-        enqueue(arrival_queue, pl->processes[i]);
+        insertHeap(arrival_queue, pl->processes[i]);
     }
 
-    sortQueueArrival(arrival_queue);
-
     while (arrival_queue->size > 0 || ready_queue->size > 0) {
-        while (peek(arrival_queue) != NULL && peek(arrival_queue)->arrival_time <= time) {
-            insertHeap(ready_queue, dequeue(arrival_queue));
+        while (peekHeap(arrival_queue) != NULL && peekHeap(arrival_queue)->arrival_time <= time) {
+            insertHeap(ready_queue, extractMin(arrival_queue));
         }
 
         if (ready_queue->size == 0) {
-            time = peek(arrival_queue)->arrival_time;
+            time = peekHeap(arrival_queue)->arrival_time;
             continue;
         }
 
@@ -46,5 +42,5 @@ void SJF(ProcessList *pl)
     pl->ave_wait_time = (float)total_wait / (float)pl->size;
 
     freeHeap(ready_queue);
-    freeQueue(arrival_queue);
+    freeHeap(arrival_queue);
 }

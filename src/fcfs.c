@@ -1,41 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "include/scheduling.h"
-#include "include/sort.h"
+#include "include/heap.h"
 
 void FCFS(ProcessList *pl)
 {
-    Process** sorted_arrival = malloc(sizeof(Process*) * pl->size);
-
-    if (sorted_arrival == NULL) {
+    ProcessHeap *arrival = createHeap(pl->size, ARRIVAL);
+    if (arrival == NULL) {
         fprintf(stderr, "%s", "Error: Unable to allocate\n");
         return;
     }
 
     for (int i = 0; i < pl->size; i++) {
-        sorted_arrival[i] = pl->processes[i];
+        insertHeap(arrival, pl->processes[i]);
     }
 
-    sortArrival(sorted_arrival, pl->size);
-
-    // first arrived process has no wait time
-    Process *first = sorted_arrival[0];
-    appendStartTime(first, first->arrival_time);
-    appendEndTime(first, first->start_time[0] + first->burst_time);
-    first->remaining_burst = 0;
-    first->waiting_time = 0;
-
+    Process *prev;
+    Process *curr;
     int total_wait = 0;
-    for (int i = 1; i < pl->size; i++) {
-        Process *curr = sorted_arrival[i];
-        Process *prev = sorted_arrival[i - 1];
+    for (int i = 0; i < pl->size; i++) {
+        // first arrived process has no wait time
+        if (i == 0) {
+            prev = extractMin(arrival);
+            appendStartTime(prev, prev->arrival_time);
+            appendEndTime(prev, prev->start_time[0] + prev->burst_time);
+            prev->remaining_burst = 0;
+            prev->waiting_time = 0;
+            continue;
+        }
+
+        curr = extractMin(arrival);
         appendStartTime(curr, prev->end_time[0]);
         appendEndTime(curr, curr->start_time[0] + curr->burst_time);
         curr->remaining_burst = 0;
         curr->waiting_time = curr->end_time[0] - curr->arrival_time - curr->burst_time;
         total_wait += curr->waiting_time;
+        prev = curr;
     }
-
     pl->ave_wait_time = (float)total_wait / (float)pl->size;
-    free(sorted_arrival);
+    freeHeap(arrival);
 }
