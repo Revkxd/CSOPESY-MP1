@@ -9,6 +9,7 @@ typedef struct {
     int waiting_time;
     int start_time[ARR_MAX];
     int end_time[ARR_MAX];
+    int run_count;
 } Process;
 
 typedef struct {
