@@ -37,6 +37,10 @@ if [ "$1" = "bench" ]; then
         for i in {0..2}; do
             $bin < $file
         done
+        if [ -f "gmon.out" ]; then
+            gprof $bin gmon.out --brief
+            rm gmon.out
+        fi
         echo -e "\n"
     done
 fi
