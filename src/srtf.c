@@ -10,9 +10,8 @@ void SRTF(ProcessList *pl)
     int total_wait = 0;
     ProcessQueue *arrival_queue = createQueue(pl->size);
     Process **ready_table = calloc(pl->size, sizeof(Process*));
-    int *burst_table = malloc(sizeof(int) * pl->size);
 
-    if (arrival_queue == NULL || ready_table == NULL || burst_table == NULL) {
+    if (arrival_queue == NULL || ready_table == NULL) {
         fprintf(stderr, "%s", "Error: Unable to allocate\n");
         return;
     }
@@ -20,7 +19,6 @@ void SRTF(ProcessList *pl)
     for (int i = 0; i < pl->size; i++) {
         Process *p = pl->processes[i];
         enqueue(arrival_queue, p);
-        burst_table[p->pid - 1] = p->burst_time;
     }
 
     sortQueueArrival(arrival_queue);
@@ -53,15 +51,15 @@ void SRTF(ProcessList *pl)
         }
 
         time++; 
-        running->burst_time--;
-        if (running->burst_time == 0) {
+        running->remaining_burst--;
+        if (running->remaining_burst == 0) {
             appendEndTime(running, time);
             removeProcess(ready_table, pl->size, minIdx);
             active_processes--;
             preempt = 1;
             // compute wait time of completed process
             int turnaround = time - running->arrival_time;
-            running->waiting_time = turnaround - burst_table[running->pid - 1];
+            running->waiting_time = turnaround - running->burst_time;
             total_wait += running->waiting_time;
             running = NULL;
         }
@@ -69,7 +67,6 @@ void SRTF(ProcessList *pl)
 
     pl->ave_wait_time = (float)total_wait / (float)pl->size;
 
-    free(burst_table);
     free(ready_table);
     freeQueue(arrival_queue);
 }

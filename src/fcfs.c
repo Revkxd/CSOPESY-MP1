@@ -30,6 +30,7 @@ void FCFS(ProcessList *pl)
         Process *prev = sorted_arrival[i - 1];
         appendStartTime(curr, prev->end_time[0]);
         appendEndTime(curr, curr->start_time[0] + curr->burst_time);
+        curr->remaining_burst = 0;
         curr->waiting_time = curr->end_time[0] - curr->arrival_time - curr->burst_time;
         total_wait += curr->waiting_time;
     }

@@ -39,6 +39,7 @@ void SJF(ProcessList *pl)
         appendStartTime(running, time);
         appendEndTime(running, time + running->burst_time);
         removeProcess(ready_table, pl->size, minIdx);
+        running->remaining_burst = 0;
         active_processes--;
         // compute wait time of completed process
         running->waiting_time = time - running->arrival_time;

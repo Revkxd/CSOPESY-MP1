@@ -6,6 +6,7 @@ typedef struct {
     int pid;
     int arrival_time;
     int burst_time;
+    int remaining_burst;
     int waiting_time;
     int start_time[ARR_MAX];
     int end_time[ARR_MAX];

@@ -29,6 +29,7 @@ Process* createProcess(int pid, int arrival_time, int burst_time)
     p->pid = pid;
     p->arrival_time = arrival_time;
     p->burst_time = burst_time;
+    p->remaining_burst = burst_time;
     p->waiting_time = 0;
     p->run_count = 0;
 
@@ -78,7 +79,7 @@ int findMinBurst(Process **table, int size)
     for (int i = 1; i < size; i++) {
         if (table[i] == NULL)
             break;
-        if (table[i]->burst_time < table[min]->burst_time)
+        if (table[i]->remaining_burst < table[min]->remaining_burst)
             min = i;
     }
     return min;
