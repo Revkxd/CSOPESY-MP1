@@ -49,17 +49,17 @@ void printProcessList(ProcessList *pl)
 {
     for (size_t i = 0; i < pl->size; i++) {
         Process *p = pl->processes[i];
-        printf("%u ", p->pid);
+        printf("%zu ", p->pid);
         for (size_t j = 0; j < p->run_count; j++)
-            printf("start time: %u end time: %u | ", p->start_time[j], p->end_time[j]);
-        printf("Waiting time: %u\n", p->waiting_time);
+            printf("start time: %zu end time: %zu | ", p->start_time[j], p->end_time[j]);
+        printf("Waiting time: %zu\n", p->waiting_time);
     }
 }
 
 void appendStartTime(Process *p, unsigned int start)
 {
     if (p->run_count >= ARR_MAX) {
-        fprintf(stderr, "Error: Index out of bounds with run_count=%hu\n", p->run_count);
+        fprintf(stderr, "Error: Index out of bounds with run_count=%zu\n", p->run_count);
         return;
     }
     p->start_time[p->run_count] = start;
@@ -68,7 +68,7 @@ void appendStartTime(Process *p, unsigned int start)
 void appendEndTime(Process *p, unsigned int end)
 {
     if (p->run_count >= ARR_MAX) {
-        fprintf(stderr, "Error: Index out of bounds with run_count=%hu\n", p->run_count);
+        fprintf(stderr, "Error: Index out of bounds with run_count=%zu\n", p->run_count);
         return;
     }
     p->end_time[p->run_count] = end;

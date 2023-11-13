@@ -3,14 +3,14 @@
 #define ARR_MAX 64
 
 typedef struct {
-    unsigned int pid;
-    unsigned int arrival_time;
-    unsigned int burst_time;
-    unsigned int remaining_burst;
-    unsigned int waiting_time;
-    unsigned int start_time[ARR_MAX];
-    unsigned int end_time[ARR_MAX];
-    unsigned short run_count;
+    size_t pid;
+    size_t arrival_time;
+    size_t burst_time;
+    size_t remaining_burst;
+    size_t waiting_time;
+    size_t start_time[ARR_MAX];
+    size_t end_time[ARR_MAX];
+    size_t run_count;
 } Process;
 
 Process* createProcess(unsigned int pid, unsigned int arrival_time, unsigned int burst_time);
