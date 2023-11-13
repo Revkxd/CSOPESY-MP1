@@ -5,4 +5,4 @@
 void FCFS(ProcessList *pl);
 void SJF(ProcessList *pl);
 void SRTF(ProcessList *pl);
-void RR(ProcessList *pl, int quantum);
+void RR(ProcessList *pl, unsigned int quantum);

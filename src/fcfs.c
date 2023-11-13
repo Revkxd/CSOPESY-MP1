@@ -11,14 +11,14 @@ void FCFS(ProcessList *pl)
         return;
     }
 
-    for (int i = 0; i < pl->size; i++) {
+    for (size_t i = 0; i < pl->size; i++) {
         insertHeap(arrival_queue, pl->processes[i]);
     }
 
     Process *prev;
     Process *curr;
-    int total_wait = 0;
-    for (int i = 0; i < pl->size; i++) {
+    size_t total_wait = 0;
+    for (size_t i = 0; i < pl->size; i++) {
         // first arrived process has no wait time
         if (i == 0) {
             prev = extractMin(arrival_queue);
@@ -36,6 +36,7 @@ void FCFS(ProcessList *pl)
         total_wait += curr->waiting_time;
         prev = curr;
     }
-    pl->ave_wait_time = (float)total_wait / (float)pl->size;
+
+    pl->ave_wait_time = (double)total_wait / (double)pl->size;
     freeHeap(arrival_queue);
 }

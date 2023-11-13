@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "include/queue.h"
 
-ProcessQueue *createQueue(int capacity)
+ProcessQueue *createQueue(size_t capacity)
 {
     ProcessQueue *q = malloc(sizeof(ProcessQueue));
     if (q == NULL)

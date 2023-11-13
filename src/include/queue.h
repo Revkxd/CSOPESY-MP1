@@ -4,13 +4,13 @@
 
 typedef struct {
     Process **queue;
-    int capacity;
-    int front;
-    int rear;
-    int size;
+    size_t capacity;
+    size_t front;
+    size_t rear;
+    size_t size;
 } ProcessQueue;
 
-ProcessQueue *createQueue(int capacity);
+ProcessQueue *createQueue(size_t capacity);
 void freeQueue(ProcessQueue *pq);
 void enqueue(ProcessQueue *pq, Process *p);
 Process* dequeue(ProcessQueue *pq);

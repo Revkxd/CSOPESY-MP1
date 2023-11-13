@@ -6,12 +6,12 @@
 
 typedef struct {
     Process **heap;
-    int size;
-    int capacity;
+    size_t size;
+    size_t capacity;
     int (*cmp)(const Process*,const Process*);
 } ProcessHeap;
 
-ProcessHeap* createHeap(int capacity, int heap_type);
+ProcessHeap* createHeap(size_t capacity, int heap_type);
 void freeHeap(ProcessHeap *ph);
 void insertHeap(ProcessHeap *ph, Process *p);
 Process* extractMin(ProcessHeap *ph);

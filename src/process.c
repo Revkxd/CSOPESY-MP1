@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "include/scheduling.h"
 
-ProcessList* createProcessList(int num_process)
+ProcessList* createProcessList(size_t num_process)
 {
     ProcessList *pl = malloc(sizeof(ProcessList));
     pl->processes = malloc(sizeof(Process*) * num_process);
@@ -17,7 +17,7 @@ ProcessList* createProcessList(int num_process)
     return pl;
 }
 
-Process* createProcess(int pid, int arrival_time, int burst_time)
+Process* createProcess(unsigned int pid, unsigned int arrival_time, unsigned int burst_time)
 {
     Process *p = malloc(sizeof(Process));
 
@@ -38,7 +38,7 @@ Process* createProcess(int pid, int arrival_time, int burst_time)
 
 void freeProcessList(ProcessList *pl)
 {
-    for (int i = 0; i < pl->size; i++) {
+    for (size_t i = 0; i < pl->size; i++) {
         free(pl->processes[i]);
     }
     free(pl->processes);
@@ -47,28 +47,30 @@ void freeProcessList(ProcessList *pl)
 
 void printProcessList(ProcessList *pl)
 {
-    for (int i = 0; i < pl->size; i++) {
+    for (size_t i = 0; i < pl->size; i++) {
         Process *p = pl->processes[i];
-        printf("%d ", p->pid);
-        for (int j = 0; j < p->run_count; j++)
-            printf("start time: %d end time: %d | ", p->start_time[j], p->end_time[j]);
-        printf("Waiting time: %d\n", p->waiting_time);
+        printf("%u ", p->pid);
+        for (size_t j = 0; j < p->run_count; j++)
+            printf("start time: %u end time: %u | ", p->start_time[j], p->end_time[j]);
+        printf("Waiting time: %u\n", p->waiting_time);
     }
 }
 
-void appendStartTime(Process *p, int start)
+void appendStartTime(Process *p, unsigned int start)
 {
-    int idx = p->run_count;
-    if (idx >= ARR_MAX) {
-        fprintf(stderr, "Error: Index out of bounds with run_count=%d\n", idx);
+    if (p->run_count >= ARR_MAX) {
+        fprintf(stderr, "Error: Index out of bounds with run_count=%hu\n", p->run_count);
         return;
     }
-    p->start_time[idx] = start;
+    p->start_time[p->run_count] = start;
 }
 
-void appendEndTime(Process *p, int end)
+void appendEndTime(Process *p, unsigned int end)
 {
-    int idx = p->run_count;
-    p->end_time[idx] = end;
+    if (p->run_count >= ARR_MAX) {
+        fprintf(stderr, "Error: Index out of bounds with run_count=%hu\n", p->run_count);
+        return;
+    }
+    p->end_time[p->run_count] = end;
     p->run_count++;
 }

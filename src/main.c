@@ -5,17 +5,17 @@
 
 int main()
 {
-    int algo, num_processes, quantum;
-    (void)!scanf("%d%d%d", &algo, &num_processes, &quantum);
+    unsigned int algo, num_processes, quantum;
+    (void)!scanf("%u%u%u", &algo, &num_processes, &quantum);
 
     if(algo != 3) {
         quantum = 1;
     }
 
     ProcessList *pl = createProcessList(num_processes);
-    for(int i = 0; i < num_processes; i++) {
-        int pid, arrival_time, burst_time = 0;
-        (void)!scanf("%d%d%d", &pid, &arrival_time, &burst_time);
+    for(size_t i = 0; i < num_processes; i++) {
+        unsigned int pid, arrival_time, burst_time = 0;
+        (void)!scanf("%u%u%u", &pid, &arrival_time, &burst_time);
         pl->processes[i] = createProcess(pid, arrival_time, burst_time);
     }
 
@@ -38,7 +38,7 @@ int main()
     
 #ifndef BENCHMARK
     printProcessList(pl);
-    printf("Average waiting time: %.1f", pl->ave_wait_time);
+    printf("Average waiting time: %.1lf", pl->ave_wait_time);
 #endif
 
 #ifdef BENCHMARK

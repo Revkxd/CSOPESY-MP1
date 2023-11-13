@@ -4,10 +4,10 @@
 #include "include/heap.h"
 #include "include/queue.h"
 
-void RR(ProcessList *pl, int quantum)
+void RR(ProcessList *pl, unsigned int quantum)
 {
-    int time = 0;
-    int total_wait = 0;
+    size_t time = 0;
+    size_t total_wait = 0;
     ProcessHeap *arrival_queue = createHeap(pl->size, ARRIVAL);
     ProcessQueue *ready_queue = createQueue(pl->size);
 
@@ -16,7 +16,7 @@ void RR(ProcessList *pl, int quantum)
         return;
     }
 
-    for (int i = 0; i < pl->size; i++) {
+    for (size_t i = 0; i < pl->size; i++) {
         insertHeap(arrival_queue, pl->processes[i]);
     }
 
@@ -51,7 +51,7 @@ void RR(ProcessList *pl, int quantum)
             enqueue(ready_queue, running);
     }
 
-    pl->ave_wait_time = (float)total_wait / (float)pl->size;
+    pl->ave_wait_time = (double)total_wait / (double)pl->size;
     freeHeap(arrival_queue);
     freeQueue(ready_queue);
 }
