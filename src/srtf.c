@@ -45,14 +45,14 @@ void SRTF(ProcessList *pl)
         time++; 
         running->remaining_burst--;
         if (running->remaining_burst == 0) {
-            appendEndTime(running, time);
-            extractMin(ready_queue);
+            running = NULL;
             preempt = 1;
             // compute wait time of completed process
-            int turnaround = time - running->arrival_time;
-            running->waiting_time = turnaround - running->burst_time;
-            total_wait += running->waiting_time;
-            running = NULL;
+            Process *completed = extractMin(ready_queue);
+            appendEndTime(completed, time);
+            int turnaround = time - completed->arrival_time;
+            completed->waiting_time = turnaround - completed->burst_time;
+            total_wait += completed->waiting_time;
         }
     }
 
