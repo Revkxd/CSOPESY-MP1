@@ -34,17 +34,12 @@ int main()
 #ifdef BENCHMARK
     clock_t end = clock();
     double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
+    fprintf(stderr, "[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
 #endif
-    
-#ifndef BENCHMARK
+
     printProcessList(pl);
     printf("Average waiting time: %.1lf", pl->ave_wait_time);
-#endif
-
-#ifdef BENCHMARK
-    printf("[BENCHMARK] CPU Time: %.4lf ms\n", elapsed * 1000);
-#endif
-
     freeProcessList(pl);
+
     return 0;
 }
