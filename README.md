@@ -18,6 +18,6 @@
 
 ## Extras
 - Other compilation targets: `all` `debug` `bench` `bench-prof`
-- Running `testscript.sh` requires optional dependencies.
-- `bench` suppresses printing of processes and only outputs elapsed CPU time.
-- `bench-prof` is the same as `bench` but requires [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html) for profiling.
+- `bench` prints output together with CPU execution time.
+- `bench-prof` is the same as `bench` but with extra compilation flags for profiling with [gprof](https://ftp.gnu.org/old-gnu/Manuals/gprof-2.9.1/html_mono/gprof.html).
+- Run `./testscript.sh` for info on how to run test cases. *(requires optional dependencies)*
