@@ -11,7 +11,7 @@ ProcessQueue *createQueue(int capacity)
         return NULL;
     }
 
-    q->queue = calloc(capacity, sizeof(Process*));
+    q->queue = malloc(sizeof(Process*) * capacity);
     if (q->queue == NULL)
     {
         fprintf(stderr, "Error: Failed to allocate queue\n");
@@ -32,19 +32,9 @@ void freeQueue(ProcessQueue *pq)
     free(pq);
 }
 
-int isFull(ProcessQueue *pq)
-{
-    return (pq->size == pq->capacity);
-}
-
-int isEmpty(ProcessQueue *pq)
-{
-    return (pq->size == 0);
-}
-
 void enqueue(ProcessQueue *pq, Process *p)
 {
-    if (isFull(pq)) {
+    if (pq->size == pq->capacity) {
         fprintf(stderr, "Error: Queue full\n");
         return;
     }
@@ -55,20 +45,18 @@ void enqueue(ProcessQueue *pq, Process *p)
 
 Process* dequeue(ProcessQueue *pq)
 {
-    if(isEmpty(pq)) {
+    if(pq->size == 0) {
         fprintf(stderr, "Error: Queue empty\n");
         return NULL;
     }
     Process *p = pq->queue[pq->front];
-    pq->queue[pq->front] = NULL;
     pq->front = (pq->front + 1) % pq->capacity;
     pq->size--;
-
     return p;
 }
 
 Process* peekQueue(ProcessQueue *pq)
 {
-    if (isEmpty(pq)) return NULL;
+    if (pq->size == 0) return NULL;
     return pq->queue[pq->front];
 }
