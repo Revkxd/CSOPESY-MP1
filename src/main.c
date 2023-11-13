@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <inttypes.h>
 #include "include/scheduling.h"
 
 int main()
 {
-    size_t algo, num_processes, quantum;
-    (void)!scanf("%zu%zu%zu", &algo, &num_processes, &quantum);
+    uint32_t algo, num_processes, quantum;
+    (void)!scanf("%" SCNu32 "%" SCNu32 "%" SCNu32, &algo, &num_processes, &quantum);
 
     if(algo != 3) {
         quantum = 1;
@@ -14,8 +15,8 @@ int main()
 
     ProcessList *pl = createProcessList(num_processes);
     for(size_t i = 0; i < num_processes; i++) {
-        size_t pid, arrival_time, burst_time = 0;
-        (void)!scanf("%zu%zu%zu", &pid, &arrival_time, &burst_time);
+        uint32_t pid, arrival_time, burst_time = 0;
+        (void)!scanf("%" SCNu32 "%" SCNu32 "%" SCNu32, &pid, &arrival_time, &burst_time);
         pl->processes[i] = createProcess(pid, arrival_time, burst_time);
     }
 

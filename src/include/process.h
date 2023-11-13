@@ -2,20 +2,22 @@
 
 #define ARR_MAX 64
 
+#include <inttypes.h>
+
 typedef struct {
-    size_t pid;
-    size_t arrival_time;
-    size_t burst_time;
-    size_t remaining_burst;
-    size_t waiting_time;
-    size_t start_time[ARR_MAX];
-    size_t end_time[ARR_MAX];
+    uint32_t pid;
+    uint32_t arrival_time;
+    uint32_t burst_time;
+    uint32_t remaining_burst;
+    uint32_t waiting_time;
+    uint32_t start_time[ARR_MAX];
+    uint32_t end_time[ARR_MAX];
     size_t run_count;
 } Process;
 
-Process* createProcess(size_t pid, size_t arrival_time, size_t burst_time);
-void appendStartTime(Process *p, size_t start);
-void appendEndTime(Process *p, size_t end);
+Process* createProcess(uint32_t pid, uint32_t arrival_time, uint32_t burst_time);
+void appendStartTime(Process *p, uint32_t start);
+void appendEndTime(Process *p, uint32_t end);
 
 typedef struct {
     Process **processes;
