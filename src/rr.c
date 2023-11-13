@@ -1,13 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <inttypes.h>
 #include "include/scheduling.h"
 #include "include/heap.h"
 #include "include/queue.h"
 
 void RR(ProcessList *pl, size_t quantum)
 {
-    size_t time = 0;
-    size_t total_wait = 0;
+    uint64_t time = 0;
+    uint64_t total_wait = 0;
     ProcessHeap *arrival_queue = createHeap(pl->size, ARRIVAL);
     ProcessQueue *ready_queue = createQueue(pl->size);
 

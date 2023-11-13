@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <inttypes.h>
 #include "include/scheduling.h"
 #include "include/heap.h"
 
@@ -17,7 +17,7 @@ void FCFS(ProcessList *pl)
 
     Process *prev;
     Process *curr;
-    size_t total_wait = 0;
+    uint64_t total_wait = 0;
     for (size_t i = 0; i < pl->size; i++) {
         // first arrived process has no wait time
         if (i == 0) {
