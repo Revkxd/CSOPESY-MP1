@@ -13,9 +13,9 @@ typedef struct {
     size_t run_count;
 } Process;
 
-Process* createProcess(unsigned int pid, unsigned int arrival_time, unsigned int burst_time);
-void appendStartTime(Process *p, unsigned int start);
-void appendEndTime(Process *p, unsigned int end);
+Process* createProcess(size_t pid, size_t arrival_time, size_t burst_time);
+void appendStartTime(Process *p, size_t start);
+void appendEndTime(Process *p, size_t end);
 
 typedef struct {
     Process **processes;

@@ -4,7 +4,7 @@
 #include "include/heap.h"
 #include "include/queue.h"
 
-void RR(ProcessList *pl, unsigned int quantum)
+void RR(ProcessList *pl, size_t quantum)
 {
     size_t time = 0;
     size_t total_wait = 0;
