@@ -35,7 +35,7 @@ if [ "$1" = "bench" ]; then
     for file in ${inputs[@]}; do
         echo "${txtmga}${bold}[INPUT] ${norm}${file}"
         for i in {0..2}; do
-            $bin < $file
+            $bin < $file 2>&1 1> /dev/null
         done
         if [ -f "gmon.out" ]; then
             gprof $bin gmon.out --brief
