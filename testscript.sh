@@ -48,7 +48,7 @@ fi
 if [ $# -eq 2 ]; then
     $bin < $1 | tee $diff_output
     echo -e "\n\n${txtred}${bold}===== Diff =====${norm}"
-    diff -y --suppress-common-lines $diff_output $2
+    diff -y --suppress-common-lines --strip-trailing-cr $diff_output $2
     echo -e "\n${txtred}${bold}===== End of Diff ====="
     rm $diff_output
 fi
