@@ -1,6 +1,6 @@
 #pragma once
 
-#define ARR_MAX 64
+#define ARR_MAX 128
 
 #include <inttypes.h>
 
