@@ -45,7 +45,7 @@ void RR(ProcessList *pl, size_t quantum)
         appendEndTime(running, time);
 
         // check for arrived processes before enqeueing the running process
-        while (peekHeap(arrival_queue) != NULL && peekHeap(arrival_queue)->arrival_time < time)
+        while (peekHeap(arrival_queue) != NULL && peekHeap(arrival_queue)->arrival_time <= time)
             enqueue(ready_queue, extractMin(arrival_queue));
         if (running->remaining_burst > 0)
             enqueue(ready_queue, running);
