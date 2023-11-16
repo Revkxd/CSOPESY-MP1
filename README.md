@@ -20,7 +20,7 @@ Group Members:
 4. Executable is located at `build/a.out`.
 5. After usage, run `make clean` to remove executable and build artifacts.
 
-# Usage
+## Usage
 - Program reads input from `stdin`.
 - Input redirection is preferred method for passing inputs (i.e. `build/a.out < input_txt_file_here`).
 - All inputs are expected to conform to the specifications.
