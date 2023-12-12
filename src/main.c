@@ -6,8 +6,8 @@
 
 int main()
 {
-    uint32_t algo, num_processes, quantum;
-    (void)!scanf("%" SCNu32 "%" SCNu32 "%" SCNu32, &algo, &num_processes, &quantum);
+    uint64_t algo, num_processes, quantum;
+    (void)!scanf("%" SCNu64 "%" SCNu64 "%" SCNu64, &algo, &num_processes, &quantum);
 
     if(algo != 3) {
         quantum = 1;
@@ -15,8 +15,8 @@ int main()
 
     ProcessList *pl = createProcessList(num_processes);
     for(size_t i = 0; i < num_processes; i++) {
-        uint32_t pid, arrival_time, burst_time = 0;
-        (void)!scanf("%" SCNu32 "%" SCNu32 "%" SCNu32, &pid, &arrival_time, &burst_time);
+        uint64_t pid, arrival_time, burst_time = 0;
+        (void)!scanf("%" SCNu64 "%" SCNu64 "%" SCNu64, &pid, &arrival_time, &burst_time);
         pl->processes[i] = createProcess(pid, arrival_time, burst_time);
     }
 

@@ -18,7 +18,7 @@ ProcessList* createProcessList(size_t num_process)
     return pl;
 }
 
-Process* createProcess(uint32_t pid, uint32_t arrival_time, uint32_t burst_time)
+Process* createProcess(uint64_t pid, uint64_t arrival_time, uint64_t burst_time)
 {
     Process *p = malloc(sizeof(Process));
 
@@ -50,14 +50,14 @@ void printProcessList(ProcessList *pl)
 {
     for (size_t i = 0; i < pl->size; i++) {
         Process *p = pl->processes[i];
-        printf("%" PRIu32 " ", p->pid);
+        printf("%" PRIu64 " ", p->pid);
         for (size_t j = 0; j < p->run_count; j++)
-            printf("start time: %" PRIu32 " end time: %" PRIu32 " | ", p->start_time[j], p->end_time[j]);
-        printf("Waiting time: %" PRIu32 "\n", p->waiting_time);
+            printf("start time: %" PRIu64 " end time: %" PRIu64 " | ", p->start_time[j], p->end_time[j]);
+        printf("Waiting time: %" PRIu64 "\n", p->waiting_time);
     }
 }
 
-void appendStartTime(Process *p, uint32_t start)
+void appendStartTime(Process *p, uint64_t start)
 {
     if (p->run_count >= ARR_MAX) {
         fprintf(stderr, "Error: Index out of bounds with run_count=%zu\n", p->run_count);
@@ -66,7 +66,7 @@ void appendStartTime(Process *p, uint32_t start)
     p->start_time[p->run_count] = start;
 }
 
-void appendEndTime(Process *p, uint32_t end)
+void appendEndTime(Process *p, uint64_t end)
 {
     if (p->run_count >= ARR_MAX) {
         fprintf(stderr, "Error: Index out of bounds with run_count=%zu\n", p->run_count);
