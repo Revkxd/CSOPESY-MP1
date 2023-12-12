@@ -75,3 +75,8 @@ void appendEndTime(Process *p, uint64_t end)
     p->end_time[p->run_count] = end;
     p->run_count++;
 }
+
+double computeStreamAve(double prev_ave, uint64_t new_val, size_t n)
+{
+    return (prev_ave * (double)n + new_val) / (n + 1);
+}

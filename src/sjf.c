@@ -6,7 +6,6 @@
 void SJF(ProcessList *pl)
 {
     uint64_t time = 0;
-    uint64_t total_wait = 0;
     ProcessHeap *arrival_queue = createHeap(pl->size, ARRIVAL);
     ProcessHeap *ready_queue = createHeap(pl->size, BURST);
 
@@ -19,6 +18,7 @@ void SJF(ProcessList *pl)
         insertHeap(arrival_queue, pl->processes[i]);
     }
 
+    size_t finished = 0;
     while (arrival_queue->size > 0 || ready_queue->size > 0) {
         while (peekHeap(arrival_queue) != NULL && peekHeap(arrival_queue)->arrival_time <= time) {
             insertHeap(ready_queue, extractMin(arrival_queue));
@@ -35,11 +35,10 @@ void SJF(ProcessList *pl)
         running->remaining_burst = 0;
         // compute wait time of completed process
         running->waiting_time = time - running->arrival_time;
-        total_wait += running->waiting_time;
+        pl->ave_wait_time = computeStreamAve(pl->ave_wait_time, running->waiting_time, finished++);
         time += running->burst_time;
     }
 
-    pl->ave_wait_time = (double)total_wait / (double)pl->size;
     freeHeap(ready_queue);
     freeHeap(arrival_queue);
 }

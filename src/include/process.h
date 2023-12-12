@@ -1,6 +1,6 @@
 #pragma once
 
-#define ARR_MAX 128
+#define ARR_MAX 1024
 
 #include <inttypes.h>
 
@@ -18,6 +18,7 @@ typedef struct {
 Process* createProcess(uint64_t pid, uint64_t arrival_time, uint64_t burst_time);
 void appendStartTime(Process *p, uint64_t start);
 void appendEndTime(Process *p, uint64_t end);
+double computeStreamAve(double prev_ave, uint64_t new_val, size_t n);
 
 typedef struct {
     Process **processes;

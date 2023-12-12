@@ -17,7 +17,6 @@ void FCFS(ProcessList *pl)
 
     Process *prev;
     Process *curr;
-    uint64_t total_wait = 0;
     for (size_t i = 0; i < pl->size; i++) {
         // first arrived process has no wait time
         if (i == 0) {
@@ -33,10 +32,9 @@ void FCFS(ProcessList *pl)
         appendEndTime(curr, curr->start_time[0] + curr->burst_time);
         curr->remaining_burst = 0;
         curr->waiting_time = curr->end_time[0] - curr->arrival_time - curr->burst_time;
-        total_wait += curr->waiting_time;
+        pl->ave_wait_time = computeStreamAve(pl->ave_wait_time, curr->waiting_time, i);
         prev = curr;
     }
 
-    pl->ave_wait_time = (double)total_wait / (double)pl->size;
     freeHeap(arrival_queue);
 }

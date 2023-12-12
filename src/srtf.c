@@ -6,7 +6,6 @@
 void SRTF(ProcessList *pl)
 {
     uint64_t time = 0;
-    uint64_t total_wait = 0;
     ProcessHeap *arrival_queue = createHeap(pl->size, ARRIVAL);
     ProcessHeap *ready_queue = createHeap(pl->size, BURST);
 
@@ -20,6 +19,7 @@ void SRTF(ProcessList *pl)
     }
 
     int preempt = 0;
+    size_t finished = 0;
     Process *running = NULL;
     while (arrival_queue->size > 0 || ready_queue->size > 0 ) {
         while (peekHeap(arrival_queue) != NULL && peekHeap(arrival_queue)->arrival_time <= time) {
@@ -50,13 +50,12 @@ void SRTF(ProcessList *pl)
             // compute wait time of completed process
             Process *completed = extractMin(ready_queue);
             appendEndTime(completed, time);
-            int turnaround = time - completed->arrival_time;
+            uint64_t turnaround = time - completed->arrival_time;
             completed->waiting_time = turnaround - completed->burst_time;
-            total_wait += completed->waiting_time;
+            pl->ave_wait_time = computeStreamAve(pl->ave_wait_time, completed->waiting_time, finished++);
         }
     }
 
-    pl->ave_wait_time = (double)total_wait / (double)pl->size;
     freeHeap(ready_queue);
     freeHeap(arrival_queue);
 }
